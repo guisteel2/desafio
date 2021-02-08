@@ -3,61 +3,72 @@
 require __DIR__.'/../vendor/autoload.php';
 use App\controller\categoria;
 
-$catetgoria = categoria::listaCatetgorias();
+if(isset($_GET['busca'])){
+  $catetgoria = categoria::listaCategorias($_GET['busca']);
+  unset($_GET['busca']);
+}else{
+  $catetgoria = categoria::listaCategorias();
+}
 
-echo '<pre>'; print_r($catetgoria); echo '</pre>';
+
+if(isset($_GET['deletar']) & is_numeric($_GET['deletar'])){
+  $excluir = categoria::deletar($_GET['deletar']);
+  echo '<pre>'; print_r($excluir); echo '</pre>';
+  if($excluir){ ?>
+    <script type="text/javascript">
+              <?php unset($_GET['deletar']); ?>
+                alert('categoria excluida com sucesso!');  
+                window.location.href = '/assets/categories.php';
+                          
+    </script>
+    <?php }
+} 
+
 ?>
 
 <!-- Main Content -->
 <main class="content">
   <div class="header-list-page">
-    <h1 class="title">Categories</h1>
-    <a href="/assets/addCategory.php" class="btn-action">Add new Category</a>
+    <h1 class="title">Categorias <a href="/assets/addCategory.php" class="btn-action">Adicionar novo Categoria</a></h1>
   </div>
+  <div class="Busca">
+    <form action="/assets/categories.php" method="get">
+      <input type="text" name="busca" placeholder="Buscar"  id="sku" class="input-text"/> 
+      <input class="btn-submit btn-action" type="submit" value="Buscar" style="width: 27%;"/>
+    </form>
+  </div>
+
   <table class="data-grid">
     <tr class="data-row">
       <th class="data-grid-th">
-          <span class="data-grid-cell-content">Name</span>
+          <span class="data-grid-cell-content">Nome</span>
       </th>
       <th class="data-grid-th">
-          <span class="data-grid-cell-content">Code</span>
+          <span class="data-grid-cell-content">Codigo</span>
       </th>
       <th class="data-grid-th">
-          <span class="data-grid-cell-content">Actions</span>
+          <span class="data-grid-cell-content">Ações</span>
       </th>
     </tr>
-    <tr class="data-row">
-      <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 1 Name</span>
-      </td>
+    <?php foreach($catetgoria as $catetgoria){ ?>
     
-      <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 1 Code</span>
-      </td>
-    
-      <td class="data-grid-td">
-        <div class="actions">
-          <div class="action edit"><span>Edit</span></div>
-          <div class="action delete"><span>Delete</span></div>
-        </div>
-      </td>
-    </tr>
-    <tr class="data-row">
-      <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 2 Name</span>
-      </td>
-    
-      <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 2 Code</span>
-      </td>
-    
-      <td class="data-grid-td">
-        <div class="actions">
-          <div class="action edit"><span>Edit</span></div>
-          <div class="action delete"><span>Delete</span></div>
-        </div>
-      </td>
-    </tr>
+      <tr class="data-row">
+        <td class="data-grid-td">
+            <span class="data-grid-cell-content"><?= $catetgoria->nome ?></span>
+        </td>
+      
+        <td class="data-grid-td">
+            <span class="data-grid-cell-content"><?= $catetgoria->codigo ?></span>
+        </td>
+      
+        <td class="data-grid-td">
+          <div class="actions">
+            <div class="action edit"> <a href="/assets/addCategory.php?id=<?= $catetgoria->id ?>">Editar</a></div> 
+            <div class="action edit"> <a href="/assets/categories.php?deletar=<?= $catetgoria->id ?>">Deletar</a></div>             
+          </div>
+        </td>
+      </tr>
+    <?php } ?>
   </table>
 </main>
 <!-- Main Content -->
