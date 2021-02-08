@@ -1,15 +1,16 @@
 <?php
 namespace App\model;
 use App\config\Banco;
+use App\model\ModelProduto;
 use \PDO;
 use \PDOException;
 
 class ModelCategoria{
-    private $id;
-    private $codigo;
-    private $Nome;
-    private $created_at;
-    private $updated_at;
+    public $id;
+    public $codigo;
+    public $Nome;
+    public $created_at;
+    public $updated_at;
 
     public static function getCategorias($where = null, $order = null, $limit = null){
         return (new Banco('categorias'))->select($where,$order,$limit)
@@ -23,23 +24,33 @@ class ModelCategoria{
         $obDatabase = new Banco('categorias');
         
         $id = $obDatabase->insert([
-                                    'codigo'    => $codigo,
-                                    'Nome'      => $Nome,
-                                    'created_at'=> $created_at,
-                                    'updated_at'=> $updated_at
+                                    'codigo'    => $array->codigo,
+                                    'Nome'      => $array->Nome,
+                                    'created_at'=> str_replace("/","-",date('Y/m/d')),
+                                    'updated_at'=> str_replace("/","-",date('Y/m/d'))
                                    ]);
         return true;
     }
 
-    public function atualizar($id){ 
+    public function atualizar($id , $array){ 
         return (new Banco('categorias'))->update('id = '.$id,[
-                                                                'codigo'     => $codigo,
-                                                                'Nome'       => $Nome,
-                                                                'updated_at' => $updated_at
+                                                                'codigo'     => $array->codigo,
+                                                                'Nome'       => $array->Nome,
+                                                                'updated_at' => str_replace("/","-",date('Y/m/d'))
                                                             ]);
     }
 
     public function excluir($id){
+        $where = 'categoria_id = '. $id;
+        $inner = 'categorias';
+        $campo = "categoria_id";
+        $fields ='a.id AS "produto_id"';
+
+        $valid = (new Banco('produtos'))->selectInner($inner, $campo,$where,$order = null, $limit = null, $fields)->fetchAll(PDO::FETCH_CLASS);
+
+        foreach($valid as $valid){
+            ModelProduto::excluir($valid->produto_id);
+        }
         return (new Banco('categorias'))->delete('id = '.$id);
     }
 

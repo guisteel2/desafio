@@ -1,5 +1,5 @@
 <!doctype html>
-<html ⚡>
+<html style="height: 100% !important;">
   <head>
     <title>Webjump | Backend Test | Dashboard</title>
     <meta charset="utf-8">
@@ -11,8 +11,21 @@
       <script async src="https://cdn.ampproject.org/v0.js"></script>
       <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
       <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-  </head>
+      <script type="text/javascript">
 
+        function showPreview(event){
+            if(event.target.files.length > 0){
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+        
+        </script>
+  </head>
+ 
+  <body id="body">
   <!-- Header -->
   <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
   <div class="close-menu">

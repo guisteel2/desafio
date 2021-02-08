@@ -81,6 +81,9 @@ class Banco{
   /**
    * Método responsável por executar uma consulta no banco
    * @param  string $where
+   * @param  string $innerJoin
+   * @param  string $inner
+   * @param  string $campo
    * @param  string $order
    * @param  string $limit
    * @param  string $fields
@@ -92,12 +95,52 @@ class Banco{
     $order = strlen($order) ? 'ORDER BY '.$order : '';
     $limit = strlen($limit) ? 'LIMIT '.$limit : '';
 
+    // echo '<pre>'; print_r('ssssasdads'); echo '</pre>';
+    // die;
     //MONTA A QUERY
     $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
-
+    
     //EXECUTA A QUERY
     return $this->execute($query);
   }
+
+  public function selectInner($inner = null, $campo = null ,$where = null, $order = null, $limit = null, $fields = '*'){
+      //DADOS DA QUERY
+      $inner = explode(",", $inner);
+      $campo = explode(",", $campo);
+      $innerJoin = "";
+      $where = strlen($where) ? 'WHERE '.'a.'.$where : '';
+      $order = strlen($order) ? 'ORDER BY '.$order : '';
+      $limit = strlen($limit) ? 'LIMIT '.$limit : '';
+      
+      
+      if(count($inner) > 1){
+
+        for($i=0; $i < count($inner); $i++){
+
+          if($fields != "*"){
+            if($i==0){
+              $Letra = 'b';
+            }else{
+              $Letra = 'c';
+            }
+          }
+          $innerJoin .= 'INNER JOIN '.$inner[$i].' as '.$Letra.' ON a.'.$campo[$i]." = ".$Letra.'.id ';
+        }
+      }else{
+        $innerJoin .= 'INNER JOIN '.$inner[0]. ' as b ON a.'.$campo[0].' = b.id ';
+      }
+      
+      //MONTA A QUERY
+      $query = 'SELECT '.$fields.' FROM '.$this->table.' as a '.$innerJoin.' '. $where.' '. $order.' '.$limit;
+      
+      
+  
+      //EXECUTA A QUERY
+      return $this->execute($query);
+  }
+
+
 
   /**
    * Método responsável por executar atualizações no banco de dados

@@ -6,12 +6,12 @@ use \PDOException;
 
 class ModelFoto{
 
-  private $id;
-  private $url;
-  private $descricao;
-  private $produto_id;
-  private $created_at;
-  private $updated_at;
+  public $id;
+  public $url;
+  public $descricao;
+  public $produto_id;
+  public $created_at;
+  public $updated_at;
 
     public static function getFoto($where = null, $order = null, $limit = null){
         return (new Banco('fotos'))->select($where,$order,$limit)
@@ -19,30 +19,30 @@ class ModelFoto{
     }
 
     public function cadastrar($array){
-        die('fazer tratamento para criar a foto do produto');
-
+        
         //INSERIR NO BANCO
         $obDatabase = new Banco('fotos');
         
         $id = $obDatabase->insert([
-                                    'url'       => $url,
-                                    'descricao' => $descricao,
-                                    'produto_id'=> $produto_id,
-                                    'created_at'=> $created_at,
-                                    'updated_at'=> $updated_at
+                                    'url'       => $array->url,
+                                    'descricao' => $array->descricao,
+                                    'produto_id'=> 1,
+                                    'created_at'=> str_replace("/","-",date('Y/m/d')),
+                                    'updated_at'=> str_replace("/","-",date('Y/m/d'))
                                    ]);
 
-        return true;
+        return $id;
     }
 
-    public function atualizar($id){ 
-        die('fazer tratamento para atualizar foto do produto');
-        return (new Banco('fotos'))->update('id = '.$id,[
-                                                            'url'        => $url,
-                                                            'descricao'  => $descricao,
-                                                            'produto_id' => $produto_id,
-                                                            'updated_at' => $updated_at
+    public function atualizar($foto){ 
+        
+        return (new Banco('fotos'))->update('id = '.$foto->id,[
+                                                            'url'        => $foto->url,
+                                                            'descricao'  => $foto->descricao,
+                                                            'produto_id' => $foto->produto_id,
+                                                            'updated_at' => str_replace("/","-",date('Y/m/d'))
                                                             ]);
+                                                
     }
 
     public function excluir($id){
