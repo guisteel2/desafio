@@ -1,0 +1,5 @@
+1° execute ajuste os parametros do config/Banco para o seu usuario e senha.
+2º crie um banco de dados chamado desafio_webpumb ou importe o arquivo desafio_webpumb.sql para seu banco de dados, verifique  o arquivo desafio_webpumb.txt para caso for criar o banco manualmente.
+3º basta baixar o codigo em qual quer local da sua maquina e com seu banco inicializado, abrie o teminal referente ao caminho do arquivo baixo e  chamar php -S localhost:8080
+
+OPS:Para criar um produto primeiro tem que criar um categoria.

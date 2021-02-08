@@ -1,5 +1,65 @@
-body {
+
+/* Ajuste no css */
+    .Ajuste{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        overflow: auto;
+    }
+
+    .Ajuste .infor {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow: auto;
+    }
+
+    html{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #body{
+      display: flex !important;
+      height: 100% !important;
+    }
+    #file-ip-1-preview{
+        /* display: none; */
+        margin: auto;
+        width: 200px;
+        height: 200px;
+    }
+    .data-grid{
+      display: flex;
+    }
+    .data-grid>tbody{
+      margin: auto;
+    }
+    .header-list-page{
+      margin: auto;
+      padding: 0px 90px 5px 90px;
+    }
+
+    .title{
+      margin: auto!important;
+    }
+
+    .Busca{
+      text-align: center;
+      width: 40%;
+      margin: auto;
+    }
+    @media only screen and (max-width: 842px) {
+      #body {
+        height: 100% !important;
+      }
+    }
+    /* css do desafio */
+    body {
       font-family: 'Open Sans', sans-serif;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
     }
 
     .link-logo {
@@ -47,7 +107,7 @@ body {
     }
 
     header {
-      overflow: hidden;
+
       border-bottom: 1px solid #e8e8e8;
       padding: 10px 30px 8px 12px;
       margin-bottom: 17px;
@@ -154,6 +214,7 @@ body {
 
     .content {
       width: 80%;
+      height: 100%;
       margin: 0 auto;
       padding: 50px 0;
     }
@@ -192,6 +253,8 @@ body {
       font-size: 1.3rem;
       margin-bottom: 0;
       width: 100%;
+      height: 80%;
+      overflow: auto;
 
     }
 
@@ -254,7 +317,7 @@ body {
       border: 1px solid #ccc;
       font-size: 16px;
       color: #555;
-      width: 500px;
+      width: 70%;
     }
 
     textarea.input-text {
@@ -274,7 +337,7 @@ body {
       cursor: pointer;
       margin: 0;
       text-align: right;
-      width: 200px;
+      width: 132px;
       margin: 15px 25px;
     }
     @media only screen and (max-width: 360px) {
