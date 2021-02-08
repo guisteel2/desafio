@@ -1,3 +1,16 @@
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use App\controller\produto;
+
+$produtos = produto::listaProdutos();
+
+// echo '<pre>'; print_r($produtos); echo '</pre>';
+
+?>
+
+
 
 <!-- Main Content -->
   <main class="content">

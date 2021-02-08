@@ -1,5 +1,21 @@
-<?php include './template/header.php';
+<?php 
+include './template/header.php';
+require __DIR__.'/../vendor/autoload.php';
+use App\controller\produto;
+
+
 $return = $_SERVER['HTTP_REFERER'];
+
+if(count($_POST) > 0 ){
+  // $produtos = produto::cadastrar($_POST);
+  // echo '<pre>'; print_r($produtos); echo '</pre>';
+}
+
+$produtos = produto::listaProdutos();
+// $produtos = produto::editar($produtos[0]->id);
+// $produtos = produto::deletar($produtos[0]->id);
+// echo '<pre>'; print_r($produtos); echo '</pre>';
+
 ?>
 
 
@@ -7,10 +23,10 @@ $return = $_SERVER['HTTP_REFERER'];
 <main class="content">
   <h1 class="title new-item">New Product</h1>
   
-  <form>
+  <form method="post" action="/assets/addProduct.php">
     <div class="input-field">
       <label for="sku" class="label">Product SKU</label>
-      <input type="text" id="sku" class="input-text" /> 
+      <input type="text" name="sku" id="sku" class="input-text" /> 
     </div>
     <div class="input-field">
       <label for="name" class="label">Product Name</label>

@@ -1,5 +1,12 @@
 
-<?php include './template/header.php'; ?>
+<?php include './template/header.php'; 
+require __DIR__.'/../vendor/autoload.php';
+use App\controller\produto;
+
+$produtos = produto::listaProdutos();
+
+echo '<pre>'; print_r($produtos[0]->id); echo '</pre>';
+?>
 
 <!-- Main Content -->
 <main class="content">

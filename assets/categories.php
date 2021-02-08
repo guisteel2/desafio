@@ -1,5 +1,12 @@
 
-<?php include './template/header.php'; ?>
+<?php include './template/header.php'; 
+require __DIR__.'/../vendor/autoload.php';
+use App\controller\categoria;
+
+$catetgoria = categoria::listaCatetgorias();
+
+echo '<pre>'; print_r($catetgoria); echo '</pre>';
+?>
 
 <!-- Main Content -->
 <main class="content">
